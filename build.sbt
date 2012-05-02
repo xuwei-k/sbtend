@@ -19,14 +19,16 @@ ScriptedPlugin.scriptedBufferLog := false
 watchSources <++= (sbtTestDirectory).map{ dir => (dir ***).get }
 
 initialCommands in console := Seq(
-  "com.github.xuwei_k"
+  "sbtend","org.eclipse.xtext.xtend2.compiler.batch"
 ).map{"import " + _ + "._"}.mkString("\n")
 
 externalResolvers ~= { _.filterNot{_.name.contains("Scala-Tools")} }
 
 resolvers ++= Seq(
   "http://fornax-platform.org/nexus/content/groups/public/",
-  "https://oss.sonatype.org/content/repositories/releases/"
+  "https://oss.sonatype.org/content/repositories/releases/",
+  "http://build.eclipse.org/common/xtend/maven/",
+  "http://maven.eclipse.org/nexus/content/groups/public/"
 ).map{u => u at u}
 
 libraryDependencies ++= Seq(
