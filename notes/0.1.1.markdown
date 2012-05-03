@@ -1,0 +1,4 @@
+* check xtend compile task was successful
+* print generated java files
+* watch sources setting
+
