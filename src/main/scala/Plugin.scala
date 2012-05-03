@@ -2,14 +2,15 @@ package sbtend
 
 import sbt._
 import Keys._
-import org.eclipse.xtext.xtend2.compiler.batch.Main
+import org.eclipse.xtext.xtend2.compiler.batch.Xtend2BatchCompiler
+import org.apache.log4j.BasicConfigurator
+import org.eclipse.xtext.xtend2.Xtend2StandaloneSetup
 
 object Plugin extends sbt.Plugin{
 
   object SbtendKeys{
     lazy val xtendSourceDirectory = SettingKey[File]("xtend-source-directory")
     lazy val xtendCompile         = SettingKey[Task[Seq[File]]]("xtend-compile")
-    lazy val xtendCompileOptions  = TaskKey[Seq[String]]("xtend-compile-options")
     lazy val xtendOutputDirectory = SettingKey[File]("xtend-output-directory")
     lazy val xtendVersion         = SettingKey[String]("xtend-version")
     lazy val xtendWatchSources    = SettingKey[Boolean]("xtend-watch-sources")
@@ -20,14 +21,17 @@ object Plugin extends sbt.Plugin{
   lazy val sbtendSettings:Seq[sbt.Project.Setting[_]] = Seq(
     xtendSourceDirectory <<= (sourceDirectory in Compile)(_ / "xtend"),
     xtendOutputDirectory <<= sourceManaged,
-    xtendCompileOptions <<= (xtendOutputDirectory,xtendSourceDirectory,dependencyClasspath in Compile).map{
-      (out,in,cp) =>
-      Seq("-d",out.toString,in.toString) // ++ cp.flatMap{c => Seq("-cp",c.data.toString)} // TODO
-    },
-    xtendCompile <<= (xtendCompileOptions,xtendOutputDirectory).map{
-      (opt,out) =>
-      Main.main(opt.toArray)
-      (out ** "*.java" get)
+    xtendCompile <<= (xtendOutputDirectory,xtendSourceDirectory,dependencyClasspath in Compile,classDirectory in Compile,streams).map{
+      (out,in,cp,classes,s) =>
+      if(! compileXtend(out,in,cp.map{_.data},classes,s.log)){
+        throw new Error("xtend compile fail")
+      }
+      val javaFiles = (out ** "*.java" get)
+      javaFiles.foreach{f =>
+        s.log.info(f.toString)
+        IO.readLines(f).foreach{ l => s.log.info(l) }
+      }
+      javaFiles
     },
     (sourceGenerators in Compile) <+= xtendCompile,
     resolvers += "xtend" at "http://build.eclipse.org/common/xtend/maven/",
@@ -42,5 +46,14 @@ object Plugin extends sbt.Plugin{
     }
   )
 
+  private[sbtend] def compileXtend(out:File,in:File,cp:Seq[File],classes:File,log:Logger):Boolean = {
+    BasicConfigurator.configure()
+    val injector = new Xtend2StandaloneSetup().createInjectorAndDoEMFRegistration
+    val c = injector.getInstance(classOf[Xtend2BatchCompiler])
+    c.setOutputPath(out.toString())
+    c.setSourcePath(in.toString())
+    c.setVerbose(true)
+    c.compile() // TODO classpath setting. fork compile process ?
+  }
 }
 

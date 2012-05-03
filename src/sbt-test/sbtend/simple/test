@@ -1,4 +1,5 @@
 > compile
 $ exists target/scala-2.9.1/src_managed/Hello.java
 > run
-
+> write-illegal-file
+-> compile
