@@ -10,6 +10,8 @@ version := "0.1.1-SNAPSHOT"
 
 homepage := Some(url("https://github.com/xuwei-k/sbtend"))
 
+licenses := Seq("MIT License" -> url("https://github.com/xuwei-k/sbtend/blob/master/LICENSE.txt"))
+
 scalacOptions := Seq("-deprecation", "-unchecked")
 
 ScriptedPlugin.scriptedSettings
