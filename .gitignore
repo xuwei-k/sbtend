@@ -4,3 +4,6 @@ project/project/target
 *.jar
 *.swp
 *.class
+.idea/
+.idea_modules/
+project/ide.sbt
