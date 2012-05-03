@@ -12,6 +12,7 @@ object Plugin extends sbt.Plugin{
     lazy val xtendCompileOptions  = TaskKey[Seq[String]]("xtend-compile-options")
     lazy val xtendOutputDirectory = SettingKey[File]("xtend-output-directory")
     lazy val xtendVersion         = SettingKey[String]("xtend-version")
+    lazy val xtendWatchSources    = SettingKey[Boolean]("xtend-watch-sources")
   }
 
   import SbtendKeys._
@@ -33,6 +34,11 @@ object Plugin extends sbt.Plugin{
     xtendVersion := "2.2.1",
     libraryDependencies <+= (xtendVersion){
       "org.eclipse.xtend2" % "org.eclipse.xtend2.lib" % _
+    },
+    xtendWatchSources := true,
+    watchSources <++= (xtendWatchSources,xtendSourceDirectory).map{ (watch,dir) =>
+      if(watch) (dir ** "*.xtend").get
+      else Nil
     }
   )
 
