@@ -1,0 +1,30 @@
+
+{
+ "organization":"com.github.xuwei_k",
+ "name":"sbtend",
+ "version":"0.1.1",
+ "description":"sbt xtend plugin",
+ "site":"https://github.com/xuwei-k/sbtend",
+ "tags":["sbt","xtend"],
+ "docs":"",
+ "licenses": [{
+   "name": "MIT License",
+   "url": "https://github.com/xuwei-k/sbtend/blob/master/LICENSE.txt"
+  }],
+ "resolvers": ["http://xuwei-k.github.com/mvn/"],
+ "dependencies": [{
+   "organization":"org.scala-tools.sbt",
+   "name": "scripted-sbt_2.9.1",
+   "version": "0.11.2"
+  },{
+   "organization":"log4j",
+   "name": "log4j",
+   "version": "1.2.16"
+  },{
+   "organization":"org.eclipse.xtend2",
+   "name": "xtend-maven-plugin",
+   "version": "2.2.2"
+  }],
+ "scalas": ["2.9.1"],
+ "sbt": true
+}
