@@ -41,3 +41,7 @@ libraryDependencies ++= Seq(
 publishTo := sys.env.get("MAVEN_DIRECTORY").map{ dir =>
   Resolver.file("gh-pages",file(dir))(Patterns(true, Resolver.mavenStyleBasePattern))
 }
+
+lsSettings
+
+LsKeys.tags in LsKeys.lsync := Seq("sbt", "xtend")
