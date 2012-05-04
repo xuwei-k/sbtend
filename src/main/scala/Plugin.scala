@@ -53,7 +53,8 @@ object Plugin extends sbt.Plugin{
     c.setOutputPath(out.toString())
     c.setSourcePath(in.toString())
     c.setVerbose(true)
-    c.compile() // TODO classpath setting. fork compile process ?
+    c.setClassPath(cp.map{_.getAbsolutePath}.mkString(":"))
+    c.compile()
   }
 }
 

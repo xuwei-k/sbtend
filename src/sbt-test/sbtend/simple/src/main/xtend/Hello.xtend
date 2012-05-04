@@ -1,6 +1,8 @@
+import org.apache.http.HttpHost
+
 class Hello{
   def static void main(String[] args) {
-//    println(scalaz.Scalaz.nel(1,2,3)) // TODO
+    println(new HttpHost("github.com"))
     println("Hello World")
   }
 }
