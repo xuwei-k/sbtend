@@ -9,7 +9,7 @@ libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.9-RC2" % "test"
 )
 
-TaskKey[Unit]("write-illegal-file") <<= (xtendSourceDirectory).map{ dir =>
+TaskKey[Unit]("write-illegal-file") <<= (xtendSource in Compile).map{ dir =>
   IO.write(dir / "illegal.xtend","shoud be compile fail")
 }
 
