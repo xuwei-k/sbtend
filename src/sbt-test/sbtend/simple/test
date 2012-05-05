@@ -1,6 +1,8 @@
 > compile
-$ exists target/scala-2.9.1/src_managed/Hello.java
+$ exists target/scala-2.9.1/src_managed/main/Hello.java
 > run
+> test:compile
+$ exists target/scala-2.9.1/src_managed/test/Spec.java
 > test
 > write-illegal-file
 -> compile
