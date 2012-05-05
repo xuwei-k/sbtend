@@ -23,15 +23,17 @@ object Plugin extends sbt.Plugin{
     xtendOutputDirectory <<= sourceManaged,
     xtendCompile <<= (xtendOutputDirectory,xtendSourceDirectory,dependencyClasspath in Compile,classDirectory in Compile,streams).map{
       (out,in,cp,classes,s) =>
-      if(! compileXtend(out,in,cp.map{_.data},classes,s.log)){
-        throw new Error("xtend compile fail")
-      }
-      val javaFiles = (out ** "*.java" get)
-      javaFiles.foreach{f =>
-        s.log.info(f.toString)
-        IO.readLines(f).foreach{ l => s.log.info(l) }
-      }
-      javaFiles
+      if(in.exists){
+        if(! compileXtend(out,in,cp.map{_.data},classes,s.log)){
+          throw new Error("xtend compile fail")
+        }
+        val javaFiles = (out ** "*.java" get)
+        javaFiles.foreach{f =>
+          s.log.info(f.toString)
+          IO.readLines(f).foreach{ l => s.log.info(l) }
+        }
+        javaFiles
+      } else Nil
     },
     (sourceGenerators in Compile) <+= xtendCompile,
     resolvers += "xtend" at "http://build.eclipse.org/common/xtend/maven/",
