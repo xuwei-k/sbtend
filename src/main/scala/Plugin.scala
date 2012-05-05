@@ -2,6 +2,7 @@ package sbtend
 
 import sbt._
 import Keys._
+import java.io.File
 import org.eclipse.xtext.xtend2.compiler.batch.Xtend2BatchCompiler
 import org.apache.log4j.BasicConfigurator
 import org.eclipse.xtext.xtend2.Xtend2StandaloneSetup
@@ -57,7 +58,7 @@ object Plugin extends sbt.Plugin{
     c.setOutputPath(out.toString())
     c.setSourcePath(in.toString())
     c.setVerbose(true)
-    c.setClassPath(cp.map{_.getAbsolutePath}.mkString(":"))
+    c.setClassPath(cp.map{_.getAbsolutePath}.mkString(File.pathSeparator))
     c.compile()
   }
 }
