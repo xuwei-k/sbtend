@@ -35,7 +35,8 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
    "log4j" % "log4j" % "1.2.16" % "compile",
-   "org.eclipse.xtend2" % "xtend-maven-plugin" % "2.2.2"
+   "org.eclipse.xtend2" % "org.eclipse.xtend2.standalone" % "2.2.1",
+   "org.eclipse.emf" % "codegen" % "2.2.3"
 )
 
 publishTo := sys.env.get("MAVEN_DIRECTORY").map{ dir =>
