@@ -2,10 +2,10 @@ package sbtend
 
 import sbt._
 import Keys._
-import java.io.File
-import org.eclipse.xtext.xtend2.compiler.batch.Xtend2BatchCompiler
+import java.io.{Writer,File}
+import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler
 import org.apache.log4j.BasicConfigurator
-import org.eclipse.xtext.xtend2.Xtend2StandaloneSetup
+import org.eclipse.xtend.core.XtendStandaloneSetup
 
 object Plugin extends sbt.Plugin{
 
@@ -22,9 +22,9 @@ object Plugin extends sbt.Plugin{
   lazy val sbtendSettings:Seq[sbt.Project.Setting[_]] = Seq(
     includeFilter in unmanagedSources ~= { _ || GlobFilter("*.xtend") },
     resolvers += "xtend" at "http://build.eclipse.org/common/xtend/maven/",
-    xtendVersion := "2.2.1",
+    xtendVersion := "2.3.0",
     libraryDependencies <+= (xtendVersion){
-      "org.eclipse.xtend2" % "org.eclipse.xtend2.lib" % _
+      "org.eclipse.xtend" % "org.eclipse.xtend.lib" % _
     }
   ) ++ Seq(Compile,Test).flatMap{createSettings}
 
@@ -51,13 +51,28 @@ object Plugin extends sbt.Plugin{
     }
   )
 
+  def createLogger():Writer = {
+    import org.apache.log4j.{Logger => Log4jLogger,Level,WriterAppender,SimpleLayout,Layout}
+
+    val logger = Log4jLogger.getLogger("org.eclipse.xtext")
+    logger.setAdditivity(false)
+    logger.setLevel(Level.DEBUG)
+    logger.removeAllAppenders()
+    val w = new java.io.CharArrayWriter
+    val appender = new WriterAppender(new SimpleLayout(),w)
+    logger.addAppender(appender)
+    w
+  }
+
   private[sbtend] def compileXtend(out:File,in:File,cp:Seq[File],classes:File,log:Logger):Boolean = {
-    BasicConfigurator.configure()
-    val injector = new Xtend2StandaloneSetup().createInjectorAndDoEMFRegistration
-    val c = injector.getInstance(classOf[Xtend2BatchCompiler])
+
+    val logger = createLogger()
+    val injector = new XtendStandaloneSetup().createInjectorAndDoEMFRegistration
+    val c = injector.getInstance(classOf[XtendBatchCompiler])
     c.setOutputPath(out.toString())
     c.setSourcePath(in.toString())
     c.setVerbose(true)
+    c.setOutputWriter(new LoggerWriter(log))
     c.setClassPath(cp.map{_.getAbsolutePath}.mkString(File.pathSeparator))
     c.compile()
   }

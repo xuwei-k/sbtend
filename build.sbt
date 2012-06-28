@@ -33,11 +33,17 @@ resolvers ++= Seq(
   "http://maven.eclipse.org/nexus/content/groups/public/"
 ).map{u => u at u}
 
-libraryDependencies ++= Seq(
+
+libraryDependencies ++= {
+val xtendVersion = "2.3.0"
+Seq(
    "log4j" % "log4j" % "1.2.16" % "compile",
-   "org.eclipse.xtend2" % "org.eclipse.xtend2.standalone" % "2.2.1",
+   "org.eclipse.xtend" % "org.eclipse.xtend.lib" % xtendVersion,
+   "org.eclipse.xtext" % "org.eclipse.xtext.xbase.lib" % xtendVersion,
+   "org.eclipse.xtend" % "org.eclipse.xtend.standalone" % xtendVersion,
    "org.eclipse.emf" % "codegen" % "2.2.3"
 )
+}
 
 publishTo := sys.env.get("MAVEN_DIRECTORY").map{ dir =>
   Resolver.file("gh-pages",file(dir))(Patterns(true, Resolver.mavenStyleBasePattern))
