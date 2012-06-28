@@ -2,6 +2,8 @@
 
 http://www.eclipse.org/xtend/
 
+## setup
+
 `project/project/plugins.scala`
 
 ```scala
@@ -9,12 +11,22 @@ import sbt._
 
 object Plugins extends Build {
   lazy val root = Project("root", file(".")) dependsOn(
-    uri("git://github.com/xuwei-k/sbtend.git")
+    uri("git://github.com/xuwei-k/sbtend.git#XX") // where XX is tag or SHA1
   )
 }
 ```
 
-your `build.sbt`
+or
+
+`project/plugins.sbt`
+
+```scala
+addSbtPlugin("com.github.xuwei_k" % "sbtend" % "XX") // where XX is version
+
+resolvers += "xuwei-k maven repo" at "http://xuwei-k.github.com/mvn/"
+```
+
+and your `build.sbt`
 
 ```
 sbtendSettings
