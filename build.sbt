@@ -14,12 +14,6 @@ licenses := Seq("MIT License" -> url("https://github.com/xuwei-k/sbtend/blob/mas
 
 scalacOptions := Seq("-deprecation", "-unchecked")
 
-ScriptedPlugin.scriptedSettings
-
-ScriptedPlugin.scriptedBufferLog := false
-
-watchSources <++= (sbtTestDirectory).map{ dir => (dir ***).get }
-
 initialCommands in console := Seq(
   "sbtend","org.eclipse.xtext.xtend2.compiler.batch"
 ).map{"import " + _ + "._"}.mkString("\n")
