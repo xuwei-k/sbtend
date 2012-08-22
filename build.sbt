@@ -6,7 +6,7 @@ organization := "com.github.xuwei_k"
 
 description := "sbt xtend plugin"
 
-version := "0.1.3-SNAPSHOT"
+version := "0.1.3"
 
 homepage := Some(url("https://github.com/xuwei-k/sbtend"))
 
@@ -43,10 +43,3 @@ publishTo := sys.env.get("MAVEN_DIRECTORY").map{ dir =>
   Resolver.file("gh-pages",file(dir))(Patterns(true, Resolver.mavenStyleBasePattern))
 }
 
-lsSettings
-
-LsKeys.tags in LsKeys.lsync := Seq("sbt", "xtend")
-
-(externalResolvers in LsKeys.lsync) := Seq(
-  "xuwei-k maven repo" at "http://xuwei-k.github.com/mvn/"
-)
