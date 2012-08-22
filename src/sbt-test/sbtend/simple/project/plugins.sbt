@@ -1,1 +1,1 @@
-addSbtPlugin("com.github.xuwei_k" % "sbtend" % "0.1.3-SNAPSHOT")
+addSbtPlugin("com.github.xuwei_k" % "sbtend" % "0.1.4-SNAPSHOT")
