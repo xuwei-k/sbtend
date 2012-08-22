@@ -29,7 +29,7 @@ resolvers ++= Seq(
 
 
 libraryDependencies ++= {
-val xtendVersion = "2.3.0"
+val xtendVersion = "2.3.1"
 Seq(
    "log4j" % "log4j" % "1.2.16" % "compile",
    "org.eclipse.xtend" % "org.eclipse.xtend.lib" % xtendVersion,
