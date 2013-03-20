@@ -22,13 +22,13 @@ object Plugin extends sbt.Plugin{
   lazy val sbtendSettings:Seq[sbt.Project.Setting[_]] = Seq(
     includeFilter in unmanagedSources ~= { _ || GlobFilter("*.xtend") },
     resolvers += "xtend" at "http://build.eclipse.org/common/xtend/maven/",
-    xtendVersion := "2.3.1",
+    xtendVersion := "2.4.0",
     libraryDependencies <+= (xtendVersion){
       "org.eclipse.xtend" % "org.eclipse.xtend.lib" % _
     }
   ) ++ Seq(Compile,Test).flatMap{createSettings}
 
-  private[sbtend] def createSettings(conf:sbt.Configuration):Seq[sbt.Project.Setting[_]] = Seq(
+  private[sbtend] def createSettings(conf:sbt.Configuration):Seq[sbt.Project.Setting[_]] = seq(
     xtendSource in conf <<= (sourceDirectory in conf)(_ / "xtend"),
     xtendOutputDirectory in conf <<= (sourceManaged in conf),
     xtendCompile in conf <<= (xtendOutputDirectory in conf,xtendSource in conf,dependencyClasspath in conf,classDirectory in conf,streams).map{
