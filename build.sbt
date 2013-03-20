@@ -6,17 +6,13 @@ organization := "com.github.xuwei_k"
 
 description := "sbt xtend plugin"
 
-version := "0.1.4-SNAPSHOT"
+version := "0.1.4"
 
 homepage := Some(url("https://github.com/xuwei-k/sbtend"))
 
 licenses := Seq("MIT License" -> url("https://github.com/xuwei-k/sbtend/blob/master/LICENSE.txt"))
 
 scalacOptions := Seq("-deprecation", "-unchecked")
-
-initialCommands in console := Seq(
-  "sbtend","org.eclipse.xtext.xtend2.compiler.batch"
-).map{"import " + _ + "._"}.mkString("\n")
 
 externalResolvers ~= { _.filterNot{_.name.contains("Scala-Tools")} }
 
@@ -26,7 +22,6 @@ resolvers ++= Seq(
   "http://build.eclipse.org/common/xtend/maven/",
   "http://maven.eclipse.org/nexus/content/groups/public/"
 ).map{u => u at u}
-
 
 libraryDependencies ++= {
 val xtendVersion = "2.4.0"
