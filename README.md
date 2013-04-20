@@ -23,7 +23,7 @@ or
 ```scala
 addSbtPlugin("com.github.xuwei_k" % "sbtend" % "XX") // where XX is version
 
-resolvers += "xuwei-k maven repo" at "http://xuwei-k.github.com/mvn/"
+resolvers += "xuwei-k maven repo" at "http://xuwei-k.github.io/mvn/"
 ```
 
 and your `build.sbt`
