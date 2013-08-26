@@ -1,0 +1,41 @@
+{
+  "organization" : "com.github.xuwei_k",
+  "name" : "sbtend",
+  "version" : "0.1.5",
+  "description" : "sbt xtend plugin",
+  "site" : "https://github.com/xuwei-k/sbtend",
+  "tags" : [ "sbt", "xtend" ],
+  "docs" : "",
+  "resolvers" : [ "http://xuwei-k.github.com/mvn/" ],
+  "dependencies" : [ {
+    "organization" : "org.eclipse.xtend",
+    "name" : "org.eclipse.xtend.lib",
+    "version" : "2.4.2"
+  }, {
+    "organization" : "org.eclipse.xtext",
+    "name" : "org.eclipse.xtext.xbase.lib",
+    "version" : "2.4.2"
+  }, {
+    "organization" : "org.eclipse.xtend",
+    "name" : "org.eclipse.xtend.standalone",
+    "version" : "2.4.2"
+  }, {
+    "organization" : "org.eclipse.emf",
+    "name" : "codegen",
+    "version" : "2.2.3"
+  }, {
+    "organization" : "org.scala-sbt",
+    "name" : "scripted-sbt",
+    "version" : "0.13.0"
+  }, {
+    "organization" : "org.scala-sbt",
+    "name" : "sbt-launch",
+    "version" : "0.13.0"
+  } ],
+  "scalas" : [ "2.10.2" ],
+  "licenses" : [ {
+    "name" : "MIT License",
+    "url" : "https://github.com/xuwei-k/sbtend/blob/master/LICENSE.txt"
+  } ],
+  "sbt" : true
+}
