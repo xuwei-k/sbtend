@@ -14,19 +14,9 @@ licenses := Seq("MIT License" -> url("https://github.com/xuwei-k/sbtend/blob/mas
 
 scalacOptions := Seq("-deprecation", "-unchecked")
 
-externalResolvers ~= { _.filterNot{_.name.contains("Scala-Tools")} }
-
-resolvers ++= Seq(
-  "http://fornax-platform.org/nexus/content/groups/public/",
-  "https://oss.sonatype.org/content/repositories/releases/",
-  "http://build.eclipse.org/common/xtend/maven/",
-  "http://maven.eclipse.org/nexus/content/groups/public/"
-).map{u => u at u}
-
 libraryDependencies ++= {
-val xtendVersion = "2.4.0"
+val xtendVersion = "2.4.2"
 Seq(
-   "log4j" % "log4j" % "1.2.16" % "compile",
    "org.eclipse.xtend" % "org.eclipse.xtend.lib" % xtendVersion,
    "org.eclipse.xtext" % "org.eclipse.xtext.xbase.lib" % xtendVersion,
    "org.eclipse.xtend" % "org.eclipse.xtend.standalone" % xtendVersion,

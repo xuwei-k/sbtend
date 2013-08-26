@@ -21,8 +21,7 @@ object Plugin extends sbt.Plugin{
 
   lazy val sbtendSettings:Seq[sbt.Project.Setting[_]] = Seq(
     includeFilter in unmanagedSources ~= { _ || GlobFilter("*.xtend") },
-    resolvers += "xtend" at "http://build.eclipse.org/common/xtend/maven/",
-    xtendVersion := "2.4.0",
+    xtendVersion := "2.4.2",
     libraryDependencies <+= (xtendVersion){
       "org.eclipse.xtend" % "org.eclipse.xtend.lib" % _
     }
