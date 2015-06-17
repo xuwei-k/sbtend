@@ -1,7 +1,7 @@
 import org.apache.http.HttpHost
 
 class Hello{
-  def hello(){
+  def hello() {
     "hello"
   }
 

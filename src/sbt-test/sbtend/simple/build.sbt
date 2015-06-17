@@ -1,8 +1,5 @@
-import SbtendKeys._
 
-sbtendSettings
-
-scalaVersion := "2.9.1"
+scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
   "org.apache.httpcomponents" % "httpclient" % "4.1.3",
@@ -12,4 +9,3 @@ libraryDependencies ++= Seq(
 TaskKey[Unit]("write-illegal-file") <<= (xtendSource in Compile).map{ dir =>
   IO.write(dir / "illegal.xtend","shoud be compile fail")
 }
-
