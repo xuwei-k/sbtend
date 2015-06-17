@@ -1,8 +1,10 @@
+# check that autoImported keys exist
+> xtendSource
 > compile
-$ exists target/scala-2.9.1/src_managed/main/Hello.java
+$ exists target/scala-2.11/src_managed/main/Hello.java
 > run
 > test:compile
-$ exists target/scala-2.9.1/src_managed/test/Spec.java
+$ exists target/scala-2.11/src_managed/test/Spec.java
 > test
 > write-illegal-file
 -> compile
