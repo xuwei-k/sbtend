@@ -32,8 +32,3 @@ libraryDependencies ++= {
      "org.eclipse.emf" % "codegen" % "2.2.3"
   )
 }
-
-publishTo := sys.env.get("MAVEN_DIRECTORY").map { dir =>
-  Resolver.file("gh-pages",file(dir))(Patterns(true, Resolver.mavenStyleBasePattern))
-}
-
